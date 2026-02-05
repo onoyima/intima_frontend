@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Heart, Wallet, Gift, Sparkles, Zap, Flower2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -26,7 +27,7 @@ export function GiftingModal({ toUserId, recipientName }: { toUserId: string, re
 
   const mutation = useMutation({
     mutationFn: async (gift: any) => {
-      const res = await fetch("/api/gifts/send", {
+      const res = await fetch(`${API_BASE}/api/gifts/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ toUserId, giftType: gift.id, amount: gift.price }),

@@ -1,4 +1,5 @@
 import { useAuth } from "@/hooks/use-auth";
+import { API_BASE } from "@/lib/queryClient";
 import { useProfile, useUpdateProfile } from "@/hooks/use-profiles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,7 +39,7 @@ export default function Profile() {
 
   const handleSave = async () => {
     // Update user details
-    await fetch("/api/users/me", {
+    await fetch(`${API_BASE}/api/users/me`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstName, lastName, profileImageUrl }),

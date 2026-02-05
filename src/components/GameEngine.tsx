@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Sparkles, Dice5, ShieldQuestion, Flame, ChevronRight, CheckCircle2, Zap, Heart, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -18,7 +19,7 @@ export function GameEngine({ coupleId }: { coupleId: number }) {
   const { data: content, isLoading } = useQuery({
     queryKey: ["/api/games/content"],
     queryFn: async () => {
-      const res = await fetch("/api/games/content");
+      const res = await fetch(`${API_BASE}/api/games/content`);
       return res.json();
     }
   });

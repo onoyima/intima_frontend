@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -16,7 +17,7 @@ export function MatchChat({ coupleId, partnerName }: { coupleId: number, partner
   const { data: messages, isLoading } = useQuery<any[]>({
     queryKey: [`/api/messages/${coupleId}`],
     queryFn: async () => {
-      const res = await fetch(`/api/messages/${coupleId}`);
+      const res = await fetch(`${API_BASE}/api/messages/${coupleId}`);
       return res.json();
     },
     refetchInterval: 3000, // Poll for new messages
@@ -24,7 +25,7 @@ export function MatchChat({ coupleId, partnerName }: { coupleId: number, partner
 
   const sendMutation = useMutation({
     mutationFn: async (text: string) => {
-      const res = await fetch(`/api/messages/${coupleId}`, {
+      const res = await fetch(`${API_BASE}/api/messages/${coupleId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: text, type: "text" }),
@@ -40,7 +41,7 @@ export function MatchChat({ coupleId, partnerName }: { coupleId: number, partner
   // Icebreaker logic
   const icebreakerMutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch("/api/ai/icebreaker", {
+      const res = await fetch(`${API_BASE}/api/ai/icebreaker`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ coupleId }),

@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -48,7 +49,7 @@ export default function Preferences() {
 
   const mutation = useMutation({
     mutationFn: async (newPrefs: any) => {
-      const res = await fetch("/api/preferences", {
+      const res = await fetch(`${API_BASE}/api/preferences`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newPrefs),

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +23,7 @@ export function MediaVault({ coupleId, partner }: { coupleId: number, partner: a
 
   const grantMutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch("/api/ai/consent/log", {
+      const res = await fetch(`${API_BASE}/api/ai/consent/log`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "explicit_media", partnerId: partner.id }),

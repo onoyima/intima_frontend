@@ -3,14 +3,16 @@ import { Card } from "@/components/ui/card";
 import { FaGoogle, FaApple } from "react-icons/fa";
 import { motion } from "framer-motion";
 
+import { API_BASE } from "@/lib/queryClient";
+
 export default function AuthPage() {
   const handleGoogleLogin = () => {
-    window.location.href = "/api/auth/google";
+    window.location.href = `${API_BASE}/api/auth/google`;
   };
 
   const handleAppleLogin = () => {
     // Apple login logic will go here
-    window.location.href = "/api/auth/apple";
+    window.location.href = `${API_BASE}/api/auth/apple`;
   };
 
   return (

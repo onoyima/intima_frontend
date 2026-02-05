@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -16,7 +17,7 @@ export function PairingScreen() {
 
   const pairMutation = useMutation({
     mutationFn: async (code: string) => {
-      const res = await fetch("/api/couples/pair", {
+      const res = await fetch(`${API_BASE}/api/couples/pair`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ inviteCode: code }),

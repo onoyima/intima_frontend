@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
@@ -22,7 +23,7 @@ export function LiveInteraction({ coupleId, partner }: { coupleId: number, partn
 
   const grantMutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch("/api/security/consent", {
+      const res = await fetch(`${API_BASE}/api/security/consent`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ coupleId, target: "live_video", isGranted: true }),

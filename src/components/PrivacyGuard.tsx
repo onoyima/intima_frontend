@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE } from "@/lib/queryClient";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldAlert, EyeOff } from "lucide-react";
 
@@ -15,7 +16,7 @@ export function PrivacyGuard({ children }: { children: React.ReactNode }) {
 
     const logIncident = async () => {
       try {
-        await fetch("/api/security/logAudit", {
+        await fetch(`${API_BASE}/api/security/logAudit`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ 

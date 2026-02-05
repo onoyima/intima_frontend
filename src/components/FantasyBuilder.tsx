@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useMutation } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Wand2, Sparkles, BookOpen, Quote, ChevronRight } from "lucide-react";
 
 const TAGS = ["Secret Lounge", "Luxury Yacht", "Rainy Cabin", "Blindfold", "Feather Touch", "Slow Dance", "Roleplay"];
@@ -20,7 +21,7 @@ export function FantasyBuilder() {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch("/api/ai/fantasy", {
+      const res = await fetch(`${API_BASE}/api/ai/fantasy`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tags: selectedTags, style: "Romantic" }),

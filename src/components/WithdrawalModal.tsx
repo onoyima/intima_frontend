@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_BASE } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -19,7 +20,7 @@ export function WithdrawalModal({ isOpen, onClose, balance }: { isOpen: boolean,
 
   const mutation = useMutation({
     mutationFn: async (data: any) => {
-      const res = await fetch("/api/withdrawals", {
+      const res = await fetch(`${API_BASE}/api/withdrawals`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
