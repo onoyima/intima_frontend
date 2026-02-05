@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* HSL Values for space-separated syntax */
+  
+  /* Deep, romantic dark theme base */
+  --background: 260 20% 10%; /* Very dark purple/black */
+  --foreground: 300 10% 98%; /* Off-white with slight pink tint */
+  
+  /* Primary Action Color - Vibrant Pink/Red */
+  --primary: 330 85% 60%;
+  --primary-foreground: 0 0% 100%;
+  
+  /* Secondary - Soft Purple */
+  --secondary: 265 50% 20%;
+  --secondary-foreground: 280 20% 90%;
+  
+  /* Muted - For backgrounds of cards */
+  --muted: 260 15% 15%;
+  --muted-foreground: 260 10% 65%;
+  
+  /* Accent - Gold/Amber for premium feel */
+  --accent: 35 90% 50%;
+  --accent-foreground: 0 0% 10%;
+  
+  /* Destructive */
+  --destructive: 0 85% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Borders & Inputs */
+  --border: 260 20% 25%;
+  --input: 260 20% 20%;
+  --ring: 330 85% 60%;
+  
+  /* Radius */
+  --radius: 1rem;
+
+  /* Custom Fonts */
+  --font-sans: 'Outfit', sans-serif;
+  --font-display: 'Playfair Display', serif;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-semibold tracking-tight;
+  }
+}
+
+/* Custom Scrollbar for sleek look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50 transition-colors;
+}
+
+/* Utility classes for glassmorphism */
+.glass {
+  @apply bg-background/60 backdrop-blur-lg border border-white/10;
+}
+
+.glass-card {
+  @apply bg-muted/40 backdrop-blur-md border border-white/5 shadow-xl;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px -5px hsl(var(--primary) / 0.5); }
+  50% { box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.8); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s infinite;
+}
