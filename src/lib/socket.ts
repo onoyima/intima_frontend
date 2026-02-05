@@ -15,12 +15,14 @@ class SocketClient {
         this.userId = userId;
         this.queryClient = queryClient;
 
-        const apiBase = import.meta.env.VITE_API_URL || "";
+        const env = (import.meta as any).env;
+        const apiBase = env?.VITE_API_URL || "";
         let url: string;
 
         if (apiBase.startsWith("http")) {
             // Replace http with ws for the socket connection
-            url = apiBase.replace(/^http/, "ws") + `/ws?userId=${userId}`;
+            const wsBase = apiBase.replace(/^http/, "ws").replace(/\/$/, "");
+            url = `${wsBase}/ws?userId=${userId}`;
         } else {
             const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
             url = `${protocol}//${window.location.host}/ws?userId=${userId}`;
