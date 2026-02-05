@@ -36,12 +36,41 @@
   --input: 260 20% 20%;
   --ring: 330 85% 60%;
   
+  /* Card */
+  --card: 260 15% 12%;
+  --card-foreground: 300 10% 98%;
+  --card-border: 260 20% 25%;
+  
+  /* Popover */
+  --popover: 260 15% 12%;
+  --popover-foreground: 300 10% 98%;
+  --popover-border: 260 20% 25%;
+  
+  /* Sidebar */
+  --sidebar: 260 15% 12%;
+  --sidebar-foreground: 300 10% 98%;
+  --sidebar-border: 260 20% 25%;
+  --sidebar-ring: 330 85% 60%;
+  --sidebar-primary: 330 85% 60%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 265 50% 20%;
+  --sidebar-accent-foreground: 280 20% 90%;
+  
+  /* Charts */
+  --chart-1: 330 85% 60%;
+  --chart-2: 265 50% 50%;
+  --chart-3: 200 85% 60%;
+  --chart-4: 35 90% 50%;
+  --chart-5: 120 60% 50%;
+  
   /* Radius */
   --radius: 1rem;
 
   /* Custom Fonts */
   --font-sans: 'Outfit', sans-serif;
   --font-display: 'Playfair Display', serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'Monaco', monospace;
 }
 
 @layer base {
