@@ -8,7 +8,7 @@ async function throwIfResNotOk(res: Response) {
 }
 
 const env = (import.meta as any).env;
-const API_BASE = env?.VITE_API_URL || "";
+export const API_BASE = env?.VITE_API_URL || "";
 
 export async function apiRequest(
   method: string,

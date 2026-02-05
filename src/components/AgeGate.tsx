@@ -6,6 +6,7 @@ import { ShieldCheck, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@shared/routes";
+import { API_BASE } from "@/lib/queryClient";
 
 export function AgeGate({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -14,7 +15,7 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch(api.auth.verifyAge.path, {
+      const res = await fetch(`${API_BASE}${api.auth.verifyAge.path}`, {
         method: api.auth.verifyAge.method,
       });
       if (!res.ok) throw new Error("Verification failed");
