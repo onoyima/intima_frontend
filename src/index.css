@@ -77,6 +77,8 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
     font-family: var(--font-sans);
+    font-size: clamp(1rem, 1.2vw, 1.125rem); /* Responsive base font size */
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {

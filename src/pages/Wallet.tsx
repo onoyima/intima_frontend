@@ -7,9 +7,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { WithdrawalModal } from "@/components/WithdrawalModal";
 
+import { PaymentModal } from "@/components/payments/PaymentModal";
+
 export default function WalletPage() {
   const { user } = useAuth();
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<{ amount: number } | null>(null);
 
   const creditPackages = [
     { id: "p1", amount: 100, price: "$9.99", bonus: "5%" },
@@ -69,37 +72,18 @@ export default function WalletPage() {
               <h4 className="text-4xl font-display font-bold text-white mb-2">{pkg.amount}</h4>
               <p className="text-xs font-bold text-white/40 uppercase mb-6">Credits</p>
               <div className="text-2xl font-display text-primary mb-6">{pkg.price}</div>
-              <Button className={`w-full h-12 rounded-xl font-bold ${pkg.popular ? 'bg-primary' : 'bg-white/5 hover:bg-white/10'}`}>
+              <Button 
+                onClick={() => setSelectedPackage({ amount: pkg.amount })} 
+                className={`w-full h-12 rounded-xl font-bold ${pkg.popular ? 'bg-primary' : 'bg-white/5 hover:bg-white/10'}`}
+              >
                 Purchase
               </Button>
             </Card>
           ))}
         </div>
 
-        {/* History */}
-        <div className="space-y-6">
-          <h3 className="text-xl font-display font-bold text-white mb-6 italic flex items-center gap-2">
-            <History className="w-5 h-5 text-primary" />
-            Transaction History
-          </h3>
-          <div className="space-y-3">
-            {[
-              { id: 1, type: "GIFT SENT", amount: "-100", label: "Eternal Heart", date: "Today" },
-              { id: 2, type: "RECHARGE", amount: "+500", label: "Credit Pack B", date: "Yesterday" }
-            ].map((tx) => (
-              <div key={tx.id} className="p-5 rounded-2xl border border-white/5 bg-white/5 flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{tx.type}</p>
-                  <p className="text-white font-medium">{tx.label}</p>
-                </div>
-                <div className="text-right">
-                  <p className={`text-lg font-display ${tx.amount.startsWith('+') ? 'text-green-400' : 'text-primary'}`}>{tx.amount}</p>
-                  <p className="text-[10px] text-white/40">{tx.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* ... History ... */}
+        
       </div>
 
       <WithdrawalModal 
@@ -107,6 +91,18 @@ export default function WalletPage() {
         onClose={() => setIsWithdrawOpen(false)} 
         balance={user?.credits || 0} 
       />
+
+      {selectedPackage && user?.email && (
+        <PaymentModal
+            amount={selectedPackage.amount}
+            userEmail={user.email}
+            onSuccess={() => {
+                setSelectedPackage(null);
+                // Invalidate query to refresh balance
+            }}
+            onClose={() => setSelectedPackage(null)}
+        />
+      )}
     </div>
   );
 }
