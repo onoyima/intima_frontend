@@ -88,28 +88,40 @@ export function CommunityFeed() {
       {/* Create Post */}
       <Card className="p-6 border-white/5 bg-white/5 rounded-[32px] overflow-hidden">
         <div className="flex gap-4">
-          <Avatar className="w-12 h-12 border-2 border-primary/20">
+          <Avatar className="w-12 h-12 border-2 border-primary/20 bg-muted">
             <AvatarImage src={user?.profileImageUrl || undefined} />
-            <AvatarFallback>{user?.firstName?.[0].toUpperCase() || '?'}</AvatarFallback>
+            <AvatarFallback className="text-black font-bold">{user?.firstName?.[0]?.toUpperCase() || '?'}</AvatarFallback>
           </Avatar>
           <div className="flex-1 space-y-4">
             <Textarea 
               placeholder="Share an intimacy insight or a playful thought..." 
-              className="bg-transparent border-none focus-visible:ring-0 text-lg resize-none p-0 min-h-[100px]"
+              className="bg-transparent border-none focus-visible:ring-0 text-white text-lg resize-none p-0 min-h-[80px] placeholder:text-white/20"
               value={newPost}
               onChange={(e) => setNewPost(e.target.value)}
             />
+            
+            {imageUrl && (
+                <div className="relative w-fit">
+                    <img src={imageUrl} alt="Preview" className="h-20 w-auto rounded-lg border border-white/10" />
+                    <button onClick={() => setImageUrl("")} className="absolute -top-2 -right-2 bg-red-500 rounded-full w-5 h-5 flex items-center justify-center text-xs text-white">✕</button>
+                </div>
+            )}
+
             <div className="flex items-center justify-between border-t border-white/5 pt-4">
-              <Button variant="ghost" size="sm" className="gap-2 text-white/40 hover:text-primary">
-                <ImageIcon className="w-4 h-4" />
-                Add Image
-              </Button>
+              <div className="flex gap-2">
+                 <Input 
+                   placeholder="Paste Image URL..." 
+                   value={imageUrl}
+                   onChange={(e) => setImageUrl(e.target.value)}
+                   className="h-8 text-xs bg-white/5 border-white/5 w-48 text-white rounded-lg"
+                 />
+              </div>
               <Button 
                 disabled={!newPost.trim() || createPostMutation.isPending}
                 onClick={() => createPostMutation.mutate({ content: newPost, imageUrl: imageUrl || undefined })}
-                className="rounded-2xl px-8 bg-primary hover:bg-primary/90 gap-2"
+                className="rounded-2xl px-6 h-10 bg-primary hover:bg-primary/90 text-white font-bold text-xs gap-2 transition-all"
               >
-                <Send className="w-4 h-4" />
+                {createPostMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 Post
               </Button>
             </div>
