@@ -7,7 +7,7 @@ import { API_BASE } from "@/lib/queryClient";
 import { Sparkles, Dice5, ShieldQuestion, Flame, ChevronRight, CheckCircle2, Zap, Heart, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-type GameType = 'truth' | 'dare' | 'desire' | 'datingFun' | 'sexStyles';
+type GameType = 'truth' | 'dare' | 'desire' | 'datingFun' | 'sexStyles' | 'icebreakers' | 'wouldYouRather';
 
 export function GameEngine({ coupleId }: { coupleId: number }) {
   const [activeTab, setActiveTab] = useState<GameType>('truth');
@@ -31,7 +31,9 @@ export function GameEngine({ coupleId }: { coupleId: number }) {
       dare: content.dares,
       desire: content.desires,
       datingFun: content.datingFun,
-      sexStyles: content.sexStyles
+      sexStyles: content.sexStyles,
+      icebreakers: content.icebreakers,
+      wouldYouRather: content.wouldYouRather
     };
     const category = categoryMapping[activeTab];
     const random = category[Math.floor(Math.random() * category.length)];
@@ -48,12 +50,11 @@ export function GameEngine({ coupleId }: { coupleId: number }) {
   };
 
   if (isLoading) return <div className="p-20 text-center text-white/20 animate-pulse uppercase tracking-[0.3em] text-xs font-bold">Summoning Desires...</div>;
-
   return (
     <div className="w-full max-w-2xl mx-auto space-y-8 p-6">
       {/* Tab Switcher */}
       <div className="bg-white/5 p-1 rounded-2xl flex flex-wrap border border-white/5 gap-1">
-        {(['truth', 'dare', 'desire', 'datingFun', 'sexStyles'] as GameType[]).map((type) => (
+        {(['truth', 'dare', 'desire', 'datingFun', 'sexStyles', 'icebreakers', 'wouldYouRather'] as GameType[]).map((type) => (
           <button
             key={type}
             onClick={() => { setActiveTab(type); setCurrentChallenge(null); }}
